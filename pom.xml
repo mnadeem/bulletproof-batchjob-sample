@@ -22,6 +22,7 @@
  		<maven-dependency-plugin.version>2.9</maven-dependency-plugin.version>
  		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>
  		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+ 		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -110,8 +111,27 @@
 
 	<build>
 		<finalName>${artifactId}</finalName>
-		<plugins>			
+		<plugins>
 			 <plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven-assembly-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>assemble-distribution</id>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<archiveBaseDirectory></archiveBaseDirectory>
+							<descriptors>
+								<descriptor>src/main/assembly/assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>			
+			 <!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>${maven-dependency-plugin.version}</version>
@@ -131,7 +151,7 @@
 					</configuration>
 				  </execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
